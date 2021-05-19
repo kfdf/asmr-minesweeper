@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="keywords" content="Minesweeper, Javascript, Canvas, Threads">
+  <title>ASMR Minesweeper</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+    body {
+      background-color: #bfbfbf;
+      text-align: center;
+      font-size: 16px;
+      padding-top: 2em;
+    }
+    #menu-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    #menu-bar > * + * {
+      margin-left: 4px;
+    }
+    #menu-bar > button {
+      padding: 2px 6px;
+      font-size: 1em;
+      border: 1px solid gray;
+      background-color: #eee;
+      border-radius: 2px;
+      color: black;
+    }
+    #menu-bar > button:hover {
+      background-color: #ddd;
+    } 
+    #menu-bar > button:active {
+      background-color: #ccc;
+    }   
+    #menu-bar > button.open {
+      background-color: #bbb;
+    }     
+    #menu-bar > .display > * {
+      vertical-align: middle;
+    }
+    #menu-bar > .display > img {
+      width: 0.75em;
+      height: 0.75em;
+    }
+    #menu-bar > .display {
+      border: 1px solid gray;
+      border-radius: 2px;
+      background-color: lightyellow;
+      color: black;
+      font-family: monospace;
+      padding: 2px 6px;
+    }
+    #menu-bar.won > .display {
+      background-color: lightgreen;
+    }
+    #menu-bar.lost > .display {
+      background-color: lightcoral;
+    }    
+    #message {
+      width: 4em;
+      font-family: sans-serif;
+    }
+    #options-wrapper {
+      position: fixed;
+      top: 2em;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      visibility: hidden;
+      transition: visibility 0.2s;
+      pointer-events: none;
+    }
+    #options-wrapper.open {
+      visibility: visible;
+    }
+    #options-panel {
+      background-color: white;
+      border: 1px solid gray;
+      border-radius: 2px;
+      padding: 4px;
+      text-align: left;
+      transition: transform 0.2s;
+      transform: translateY(-100%);
+      pointer-events: initial;
+    }
+    #options-wrapper.open #options-panel {
+      transform: translateY(0);
+    }
+    #options-panel input {
+      width: 4em;
+      font-size: 1em;
+    }
+    #options-panel input.error {
+      border-color: red;
+    }
+    #options-panel > table {
+      border-spacing: 4px;
+      text-align: center;
+    }
+    #start {
+      width: 100%;
+    }
+  </style>
+  <script type="module" src="index.js"></script>  
+</head>
+<body>
+  <div id="options-wrapper">
+    <div id="options-panel">
+      <table>
+        <tr>
+          <td><label for="width-input">Width</label></td>
+          <td><input id="width-input" placeholder="1..300"></td>
+          <td><input id="mines-input" placeholder="1..w*h"></td>
+          <td><label for="mines-input">Mines</label></td>
+        </tr>
+        <tr>
+          <td><label for="height-input">Height</label></td>
+          <td><input id="height-input" placeholder="1..300"></td>
+          <td colspan="2">
+            <span id="mine-density"></span> cells/mine
+          </td>
+        
+        </tr>        
+        <tr>
+          <td colspan="3"><button id="start">Start</button></td>
+          <td colspan="1">
+            <a href="https://github.com/kfdf/asmr-minesweeper#readme">repo</a>
+          </td>            
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div id="menu-bar">
+    <span id="flag-count" class="display">0</span>
+    <button id="restart">Restart</button>
+    <button id="helper">Helper</button>
+    <button id="autoplay">Autoplay</button>
+    <span id="stopwatch" class="display" >0</span>
+  </div>
+  <mine-sweeper></mine-sweeper>
+</body>
+</html>
