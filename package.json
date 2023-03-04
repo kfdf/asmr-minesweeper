@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "esbuild src/index.ts --bundle --format=esm --outdir=public --servedir=public",
-    "build": "esbuild src/index.ts --bundle --minify --format=esm --outdir=public"
+    "dev": "esbuild src/index.ts --bundle --format=esm --outdir=. --servedir=.",
+    "build": "esbuild src/index.ts --bundle --minify --format=esm --outdir=."
   }
 }
