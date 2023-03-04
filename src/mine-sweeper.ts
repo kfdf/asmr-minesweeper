@@ -262,6 +262,7 @@ export class MineSweeper {
   }  
   * #autoplayGen() {
     let f = this.#field
+    if (f.tilesToReveal == 0) throw 'won'
     while (true) {
       yield* this.#solverGen()
       yield ff.sleep(300)
